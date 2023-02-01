@@ -1,0 +1,11 @@
+---
+# database id of book
+int32 id
+# text recognition condifence
+float32 confidence
+# book match score
+float32 score
+# recognized texts
+std_msgs/String text
+# the title of the matched book
+std_msgs/String title

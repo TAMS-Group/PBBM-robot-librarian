@@ -1,0 +1,359 @@
+<?xml version="1.0" ?>
+<robot name="books_domino_spiral"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of several books.
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <!-- main body with Collada mesh for both visual and collision -->
+
+  <property name="r0" value="0.3" />
+  <property name="dr" value="0.04" />
+  <property name="pi2" value="6.283" />
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+  <xacro:book_cube 
+      name="book_bobh"
+      weight="0.210"
+      mesh="book-bobh.dae"
+      xsize="0.126"
+      ysize="0.010"
+      zsize="0.184"
+  />
+
+  <xacro:book_cube 
+      name="book_dyson"
+      weight="0.228"
+      mesh="book-dyson.dae"
+      xsize="0.130"
+      ysize="0.018"
+      zsize="0.198"
+  />
+
+  <xacro:book_cube 
+      name="book_goedel"
+      weight="1.100"
+      mesh="book-goedel.dae"
+      xsize="0.162"
+      ysize="0.055"
+      zsize="0.234"
+  />
+
+  <xacro:book_cube 
+      name="book_hamburg"
+      weight="0.062"
+      mesh="book-hamburg.dae"
+      xsize="0.108"
+      ysize="0.005"
+      zsize="0.185"
+  />
+
+  <xacro:book_cube 
+      name="book_haykin"
+      weight="1.316"
+      mesh="book-haykin.dae"
+      xsize="0.177"
+      ysize="0.032"
+      zsize="0.230"
+  />
+
+  <xacro:book_cube 
+      name="book_javaff"
+      weight="0.906"
+      mesh="book-javaff.dae"
+      xsize="0.157"
+      ysize="0.034"
+      zsize="0.235"
+  />
+
+  <xacro:book_cube 
+      name="book_jekyll"
+      weight="0.056"
+      mesh="book-jekyll.dae"
+      xsize="0.110"
+      ysize="0.007"
+      zsize="0.180"
+  />
+
+  <xacro:book_cube 
+      name="book_knuth_40"
+      weight="0.400"
+      mesh="book-knuth-40.dae"
+      xsize="0.161"
+      ysize="0.014"
+      zsize="0.240"
+  />
+
+  <xacro:book_cube 
+      name="book_knuth_41"
+      weight="0.498"
+      mesh="book-knuth-41.dae"
+      xsize="0.161"
+      ysize="0.017"
+      zsize="0.240"
+  />
+
+
+  <xacro:book_cube 
+      name="book_knuth_42"
+      weight="0.274"
+      mesh="book-knuth-42.dae"
+      xsize="0.161"
+      ysize="0.009"
+      zsize="0.240"
+  />
+
+  <xacro:book_cube 
+      name="book_knuth"
+      weight="1.080"
+      mesh="book-knuth.dae"
+      xsize="0.167"
+      ysize="0.037"
+      zsize="0.240"
+  />
+
+  <xacro:book_cube 
+      name="book_lagemann"
+      weight="0.554"
+      mesh="book-lagemann.dae"
+      xsize="0.165"
+      ysize="0.015"
+      zsize="0.242"
+  />
+
+  <xacro:book_cube 
+      name="book_lakoff"
+      weight="0.977"
+      mesh="book-lakoff.dae"
+      xsize="0.168"
+      ysize="0.035"
+      zsize="0.240"
+  />
+
+  <xacro:book_cube 
+      name="book_lskm"
+      weight="0.978"
+      mesh="book-lskm.dae"
+      xsize="0.217"
+      ysize="0.024"
+      zsize="0.250"
+  />
+
+  <xacro:book_cube 
+      name="book_mead_conway"
+      weight="0.972"
+      mesh="book-mead-conway.dae"
+      xsize="0.200"
+      ysize="0.025"
+      zsize="0.243"
+  />
+
+  <xacro:book_cube 
+      name="book_memory"
+      weight="0.666"
+      mesh="book-memory.dae"
+      xsize="0.148"
+      ysize="0.028"
+      zsize="0.227"
+  />
+
+  <xacro:book_cube 
+      name="book_minsky"
+      weight="0.764"
+      mesh="book-minsky.dae"
+      xsize="0.215"
+      ysize="0.019"
+      zsize="0.280"
+  />
+
+  <xacro:book_cube 
+      name="book_moeller"
+      weight="0.592"
+      mesh="book-moeller.dae"
+      xsize="0.153"
+      ysize="0.023"
+      zsize="0.236"
+  />
+
+  <xacro:book_cube 
+      name="book_pdp1"
+      weight="0.897"
+      mesh="book-pdp1.dae"
+      xsize="0.150"
+      ysize="0.032"
+      zsize="0.228"
+  />
+
+  <xacro:book_cube 
+      name="book_pdp2"
+      weight="1.008"
+      mesh="book-pdp2.dae"
+      xsize="0.150"
+      ysize="0.036"
+      zsize="0.228"
+  />
+
+  <xacro:book_cube 
+      name="book_rojas"
+      weight="0.666"
+      mesh="book-rojas.dae"
+      xsize="0.155"
+      ysize="0.030"
+      zsize="0.232"
+  />
+
+  <xacro:book_cube 
+      name="book_schmidt"
+      weight="1.764"
+      mesh="book-schmidt.dae"
+      xsize="0.200"
+      ysize="0.038"
+      zsize="0.275"
+  />
+
+  <xacro:book_cube 
+      name="book_selfish"
+      weight="0.246"
+      mesh="book-selfish.dae"
+      xsize="0.130"
+      ysize="0.020"
+      zsize="0.196"
+  />
+
+  <xacro:book_cube 
+      name="book_voynich"
+      weight="2.0"
+      mesh="voynich/book-voynich.dae"
+      xsize="0.160"
+      ysize="0.057"
+      zsize="0.230"
+  />
+
+  <xacro:book_cube 
+      name="book_watson"
+      weight="0.114"
+      mesh="book-watson.dae"
+      xsize="0.115"
+      ysize="0.010"
+      zsize="0.190"
+  />
+
+  <xacro:book_cube 
+      name="book_wiering"
+      weight="0.964"
+      mesh="book-wiering.dae"
+      xsize="0.155"
+      ysize="0.035"
+      zsize="0.235"
+  />
+
+  <xacro:book_cube 
+      name="book_winograd"
+      weight="0.777"
+      mesh="book-winograd.dae"
+      xsize="0.168"
+      ysize="0.037"
+      zsize="0.240"
+  />
+
+  <xacro:book_cube 
+      name="book_zuse"
+      weight="0.764"
+      mesh="book-zuse.dae"
+      xsize="0.172"
+      ysize="0.021"
+      zsize="0.247"
+  />
+
+
+  <link name="world" />
+
+
+
+<xacro:macro name="spiral_joint" params="book index height">
+  <joint name="book_${index}_joint" type="floating">
+    <parent link="world" />
+    <child  link="${book}_link" />
+    <origin xyz="${(r0+dr*pi2*index/100.0)*cos(pi2*index/100.0)}
+                 ${(r0+dr*pi2*index/100.0)*sin(pi2*index/100.0)}
+                 ${height/2}"
+            rpy="0.0 0.0 ${(pi2*index/100.0)}" />
+  </joint>
+</xacro:macro>
+
+<xacro:spiral_joint book="book_jekyll"   height="0.180" index="0" />
+<xacro:spiral_joint book="book_bobh"     height="0.184" index="5" />
+<xacro:spiral_joint book="book_hamburg"  height="0.185" index="10" />
+<xacro:spiral_joint book="book_watson"   height="0.190" index="15" />
+<xacro:spiral_joint book="book_selfish"  height="0.196" index="20" />
+
+<xacro:spiral_joint book="book_dyson"    height="0.198" index="25" />
+<xacro:spiral_joint book="book_memory"   height="0.227" index="30" />
+<xacro:spiral_joint book="book_pdp1"     height="0.228" index="35" />
+<xacro:spiral_joint book="book_pdp2"     height="0.228" index="40" />
+<xacro:spiral_joint book="book_haykin"   height="0.230" index="45" />
+
+<xacro:spiral_joint book="book_rojas"    height="0.232" index="50" />
+<xacro:spiral_joint book="book_goedel"   height="0.234" index="55" />
+<xacro:spiral_joint book="book_javaff"   height="0.235" index="60" />
+<xacro:spiral_joint book="book_wiering"  height="0.235" index="65" />
+<xacro:spiral_joint book="book_moeller"  height="0.238" index="70" />
+<xacro:spiral_joint book="book_knuth_40" height="0.240" index="75" />
+
+<xacro:spiral_joint book="book_knuth_41" height="0.240" index="80" />
+<xacro:spiral_joint book="book_knuth_42" height="0.240" index="85" />
+<xacro:spiral_joint book="book_knuth"    height="0.240" index="90" />
+<xacro:spiral_joint book="book_lakoff"   height="0.240" index="95" />
+<xacro:spiral_joint book="book_winograd" height="0.240" index="100" />
+
+<xacro:spiral_joint book="book_lagemann" height="0.242" index="105" />
+<xacro:spiral_joint book="book_mead_conway" height="0.243" index="110" />
+<xacro:spiral_joint book="book_zuse"     height="0.247" index="115" />
+<xacro:spiral_joint book="book_lskm"     height="0.250" index="120" />
+<xacro:spiral_joint book="book_schmidt"  height="0.275" index="125" />
+<xacro:spiral_joint book="book_minsky"   height="0.280" index="130" />
+
+<xacro:spiral_joint book="book_voynich"  height="0.230" index="135" />
+
+
+<!--
+jekyll: 0.180
+bobh: 0.184
+hamburg: 0.185
+watson: 0.190
+selfish: 0.196
+
+dyson: 0.198
+memory: 0.227
+pdp1:   0.228
+pdp2:   0.228
+haykin: 0.230
+
+rojas:  0.232
+goedel: 0.234
+javaff: 0.235
+moeller: 0.238
+knuth40: 0.240
+
+knuth41: 0.240
+knuth42: 0.240
+knuth:   0.240
+lakoff:  0.240
+winograd: 0.240
+
+lagemann: 0.242
+mead_conway: 0.243
+zuse: 0.247
+schmidt: 0.275
+minsky: 0.280
+voynich: 0.230
+-->
+
+</robot>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="shelf_broadcaster" args="1.126 -0.316 0 1.57 0 0 base_footprint shelf" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="shelf_1_0_0_broadcaster" args="0.75 0.47 0.947 -1.57 0 0 base_footprint shelf_1_0_0" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="shelf_0_0_0_broadcaster" args="0.75 0.47 0.596 -1.57 0 0 base_footprint shelf_0_0_0" />
+</launch>

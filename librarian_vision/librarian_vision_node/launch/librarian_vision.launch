@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="camera_frame" default="head_mount_kinect2_rgb_optical_frame" />
+    <arg name="/librarian/apriltag_image_height" default="600" doc="Images for april tag analyse will be scaled to match the given height"/>
+
+    <include file="$(find librarian_vision_node)/launch/librarian_continuous_detection.launch" pass_all_args="true" />
+
+    <node pkg="librarian_vision_node" type="librarian_pc_process_node" name="librarian_pc_process_node" output="screen" />
+    <node pkg="librarian_vision_node" type="librarian_book_extract.py" name="librarian_book_extract" output="screen" />
+    <node pkg="librarian_vision_node" type="librarian_image_preproc.py" name="librarian_image_preproc" output="screen" /> 
+    <node pkg="librarian_vision_node" type="detection_node.py" name="librarian_text_detection" output="screen" />
+    <node pkg="librarian_vision_node" type="recognize_node.py" name="librarian_text_recognition" output="screen" />
+    <node pkg="librarian_vision_node" type="librarian_environment.py" name="librarian_environment" output="screen" />
+    <node pkg="librarian_vision_node" type="book_cover_inspection_node.py" name="book_cover_inspection_node" output="screen" />   
+    <node pkg="librarian_resources" type="librarian_shelf_from_image.py" name="librarian_shelf_from_image" output="screen">
+        <param name="apriltag_image_height" type="str" value="$(arg /librarian/apriltag_image_height)" />
+    </node>
+</launch>

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<robot name="vintage_shelf_3"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gazebo/Moveit model of a vintage bookshelf, brown wood, 240x240x40
+
+       (C) 2021 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+  <xacro:book_cube name="vintage_shelf_3" weight="100" 
+                     mesh="shelves/vintage-shelf-3.dae"
+                     xsize="2.4" ysize="0.4" zsize="2.4"  />
+
+</robot>
+

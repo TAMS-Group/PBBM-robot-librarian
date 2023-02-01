@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+<robot name="articulated_book_voynich"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of the "Voynich" parchment
+       with some rotational joints.
+       Origin and center of mass are at the center of the mesh.
+       Book size is 0.16 x 0.057 x 0.23 meters, estimated weight is 2.0 kg.
+   
+       We have four parts, allocated cover..40, 41..66, 67..80, 81..end of 102 pages.
+       This corresponds to 40%, 25%, 14% and 21% of total weight (2 kg) 
+       and width/total-ysize (5.7 cm).
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_part.xacro" />
+
+  <!-- main link, no inertia, no collision, no visual -->
+  <link name="book_voynich_link" >  
+    <visual>
+      <origin xyz="${0.16/2} 0 0" rpy="0 0 0" />
+      <geometry>  
+        <box size="0.175 0.057 0.230" rpy="0 0 0" />
+      </geometry>
+    </visual>
+  </link>
+
+  <xacro:book_part 
+      name="book_voynich_part1"
+      weight="0.80"
+      mesh="voynich/book-voynich-part1.dae"
+      xsize="0.160"
+      ysize="0.023"
+      zsize="0.230"
+  />
+
+  <xacro:book_part 
+      name="book_voynich_part2"
+      weight="0.50"
+      mesh="voynich/book-voynich-part2.dae"
+      xsize="0.160"
+      ysize="0.014"
+      zsize="0.230"
+  />
+
+  <xacro:book_part 
+      name="book_voynich_part3"
+      weight="0.28"
+      mesh="voynich/book-voynich-part3.dae"
+      xsize="0.160"
+      ysize="0.008"
+      zsize="0.230"
+  />
+
+  <xacro:book_part 
+      name="book_voynich_part4"
+      weight="0.42"
+      mesh="voynich/book-voynich-part4.dae"
+      xsize="0.160"
+      ysize="0.012"
+      zsize="0.230"
+  />
+
+  <!-- back part of the book fixed to the root link -->
+  <joint name="book_voynich_part4_joint" type="fixed" >
+    <parent link="book_voynich_link" />
+    <child  link="book_voynich_part4_link" />
+    <origin xyz="0 ${0.057/2} 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="book_voynich_part1_joint" type="revolute" >
+    <parent link="book_voynich_part2_link" />
+    <child  link="book_voynich_part1_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.014} 0" rpy="0 0 0" />
+    <limit lower="-3.14" upper="0.0" effort="1" velocity="1" /> 
+  </joint>
+ 
+  <joint name="book_voynich_part2_joint" type="revolute" >
+    <parent link="book_voynich_part3_link" />
+    <child  link="book_voynich_part2_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.008} 0" rpy="0 0 0" />
+    <limit lower="-3.14" upper="0.0" effort="1" velocity="1" /> 
+  </joint>
+ 
+  <joint name="book_voynich_part3_joint" type="revolute" >
+    <parent link="book_voynich_part4_link" />
+    <child  link="book_voynich_part3_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0  ${-0.012} 0" rpy="0 0 0" />
+    <limit lower="-3.14" upper="0.0" effort="1" velocity="1" /> 
+  </joint>
+ 
+
+  <!-- gazebo only  
+  <link name="world" />
+
+  <joint name="book_voynich_world_joint" type="fixed" >
+    <parent link="world" />
+    <child  link="book_voynich_link" />
+    <origin xyz="0 0 0.2" rpy="0 0 0" />
+  </joint>
+  -->
+
+</robot>
+

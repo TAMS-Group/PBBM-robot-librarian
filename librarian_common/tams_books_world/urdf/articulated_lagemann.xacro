@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<robot name="articulate_book_lagemann"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of "Lagemann: Rechnerstrukturen, 1987"
+       with some rotational joints.
+       Origin and center of mass are at the center of the mesh.
+   
+       We have four parts, allocated 0..50/ 50..80 / 81..130 / 131..300 of 300 pages total. 
+       This corresponds to 50/300, 30/300, 50/300, 170/300 of the total weight (554 grams),
+       and the same ratio of the total book ysize.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_part.xacro" />
+
+  <!-- main link, no inertia, no collision, no visual -->
+  <link name="book_lagemann_link" >  
+    <visual>
+      <origin xyz="${0.165/2} 0 0" rpy="0 0 0" />
+      <geometry>  
+        <box size="0.175 0.015 0.230" rpy="0 0 0" />
+      </geometry>
+    </visual>
+  </link>
+
+  <xacro:book_part 
+      name="book_lagemann_part1"
+      weight="0.092"
+      mesh="lagemann/book-lagemann-part1.dae"
+      xsize="0.165"
+      ysize="0.0025"
+      zsize="0.242"
+  />
+
+  <xacro:book_part 
+      name="book_lagemann_part2"
+      weight="0.055"
+      mesh="lagemann/book-lagemann-part2.dae"
+      xsize="0.165"
+      ysize="0.0015"
+      zsize="0.242"
+  />
+
+  <xacro:book_part 
+      name="book_lagemann_part3"
+      weight="0.092"
+      mesh="lagemann/book-lagemann-part3.dae"
+      xsize="0.165"
+      ysize="0.0025"
+      zsize="0.242"
+  />
+
+  <xacro:book_part 
+      name="book_lagemann_part4"
+      weight="0.313"
+      mesh="lagemann/book-lagemann-part4.dae"
+      xsize="0.165"
+      ysize="0.0085"
+      zsize="0.242"
+  />
+
+  <!-- back part of the book fixed to the root link -->
+  <joint name="book_lagemann_part4_joint" type="fixed" >
+    <parent link="book_lagemann_link" />
+    <child  link="book_lagemann_part4_link" />
+    <origin xyz="0 ${0.015/2} 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="book_lagemann_part1_joint" type="revolute" >
+    <parent link="book_lagemann_part2_link" />
+    <child  link="book_lagemann_part1_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.0015} 0" rpy="0 0 0" />
+    <limit lower="-3.14" upper="0.0" effort="1" velocity="1" /> 
+  </joint>
+ 
+  <joint name="book_lagemann_part2_joint" type="revolute" >
+    <parent link="book_lagemann_part3_link" />
+    <child  link="book_lagemann_part2_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.0025} 0" rpy="0 0 0" />
+    <limit lower="-3.14" upper="0.0" effort="1" velocity="1" /> 
+  </joint>
+ 
+  <joint name="book_lagemann_part3_joint" type="revolute" >
+    <parent link="book_lagemann_part4_link" />
+    <child  link="book_lagemann_part3_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0  ${-0.0085} 0" rpy="0 0 0" />
+    <limit lower="-3.14" upper="0.0" effort="1" velocity="1" /> 
+  </joint>
+ 
+
+  <!-- gazebo only  
+  <link name="world" />
+
+  <joint name="book_lagemann_world_joint" type="fixed" >
+    <parent link="world" />
+    <child  link="book_lagemann_link" />
+    <origin xyz="0 0 0.2" rpy="0 0 0" />
+  </joint>
+  -->
+
+</robot>
+

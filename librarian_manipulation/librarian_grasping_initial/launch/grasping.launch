@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="demo" default="False"/>
+    <node pkg="librarian_grasping_initial" type="grasping_controller.py" args="--demo $(arg demo)" name="grasping_controller" output="screen"/>
+    <node pkg="bio_ik_service" type="bio_ik_service" name="bio_ik_service"/>
+</launch>

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<robot name="coffee_cup_bookend_demo"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find tams_books_world)/urdf/coffee_cup_bookend.xacro" />
+
+  <xacro:coffee_cup_bookend name="coffee_cup_bookend" />
+
+
+</robot>

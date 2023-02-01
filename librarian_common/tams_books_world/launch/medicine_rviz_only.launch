@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- launch all sample medicine boxes in rviz -->
+  <arg name="xacro_name" default="articulated_lagemann.xacro" />
+  <arg name="robot_link" default="book_lagemann_link" />
+
+
+
+  <!-- upload the robot xacro/urdf to the param server -->
+  <param name="robot_description" 
+         command="$(find xacro)/xacro --inorder $(find tams_books_world)/urdf/$(arg xacro_name)" />
+
+
+  <!-- We do not have a robot connected, so publish fake joint states -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+   <param name="/use_gui" value="true"/>
+   <!-- <rosparam param="/source_list">[/config/fake_controller_joint_states]</rosparam> -->
+  </node>
+
+
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
+   <param name="publish_frequency" type="double" value="100.0" />
+   <param name="tf_prefix" type="string" value="" />
+  </node>
+
+   <!-- create world -> map links in tf -->
+   <node pkg="tf" type="static_transform_publisher" name="world_map_publisher" 
+          args="0 0 1  0 0 0 world map 10" />
+
+
+   <!-- create world -> map links in tf -->
+  <node pkg="tf" type="static_transform_publisher" name="world_book_publisher" 
+          args="0 0 0.2  0 0 0 world $(arg robot_link) 10" />
+
+
+  <node name="rviz" pkg="rviz" type="rviz" respawn="false" output="screen"
+        args="-d $(find tams_books_world)/config/articulated.rviz" />
+
+</launch>

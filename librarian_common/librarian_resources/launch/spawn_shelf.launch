@@ -1,0 +1,11 @@
+<launch>
+  <!-- send table urdf to param server -->
+  <param name="shelf_description" command="$(find xacro)/xacro.py $(find librarian_resources)/models/shelf.urdf.xacro" />
+
+  <!-- push table_description to factory and spawn robot in gazebo -->
+  <node name="spawn_shelf" pkg="gazebo_ros" type="spawn_model" 
+    args="-urdf -param shelf_description -z 0.0 -model shelf" 
+    respawn="false" output="screen" />
+
+
+</launch>

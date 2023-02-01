@@ -1,0 +1,216 @@
+<?xml version="1.0" ?>
+<robot name="medicine_demo"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of several books.
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <!-- main body with Collada mesh for both visual and collision -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <ns></ns>
+      <!-- <robotSimType>pal_hardware_gazebo/PalHardwareGazebo</robotSimType> -->
+      <robotNamespace></robotNamespace>
+      <controlPeriod>0.001</controlPeriod>
+    </plugin>
+ </gazebo>
+
+
+  <link name="world" />
+
+  <!-- Aronal/Elmex toothpaste travel pack, 2x12ml -->
+  <xacro:book_cube 
+      name="aronal"
+      weight="0.040"  
+      mesh="medicine/box-aronal.dae"
+      xsize="0.051"
+      ysize="0.021"
+      zsize="0.092"
+  />
+
+  <!-- ASS-ratiopharm 500mg 30 N2 -->
+  <xacro:book_cube 
+      name="ass_ratiopharm"
+      weight="0.040"  
+      mesh="medicine/box-ass.dae"
+      xsize="0.105"
+      ysize="0.025"
+      zsize="0.043"
+  />
+
+  <!-- Cetirizin-ADGC 50 N2 -->
+  <xacro:book_cube 
+      name="cetirizin"
+      weight="0.060"
+      mesh="medicine/box-cetirizin.dae"
+      xsize="0.086"
+      ysize="0.030"
+      zsize="0.036"
+  />
+
+  <!-- Today Cremeseife mild, soap bar -->
+  <xacro:book_cube 
+      name="cremeseife"
+      weight="0.150"
+      mesh="medicine/box-cremeseife.dae"
+      xsize="0.093"
+      ysize="0.036"
+      zsize="0.064"
+  />
+
+  <!-- Doppelherz pack of vitamin-D pills -->
+  <xacro:book_cube 
+      name="doppelherz"
+      weight="0.0125"
+      mesh="medicine/box-doppelherz.dae"
+      xsize="0.085"
+      ysize="0.030"
+      zsize="0.125"
+  />
+
+  <!-- pack of paper handkerchiefs, Kokett brand -->
+  <xacro:book_cube 
+      name="kokett"
+      weight="0.050"
+      mesh="medicine/box-kokett.dae"
+      xsize="0.055"
+      ysize="0.023"
+      zsize="0.106"
+  />
+
+  <!-- Lopedium 10 N1 -->
+  <xacro:book_cube 
+      name="lopedium"
+      weight="0.046"
+      mesh="medicine/box-lopedium.dae"
+      xsize="0.097"
+      ysize="0.022"
+      zsize="0.045"
+  />
+
+  <!-- pack of band-aid, Schlecker AS brand -->
+  <xacro:book_cube 
+      name="pflaster"
+      weight="0.200"
+      mesh="medicine/box-pflaster.dae"
+      xsize="0.074"
+      ysize="0.020"
+      zsize="0.107"
+  />
+
+  <!-- pack of lens-cleaning towels, Bestview brand -->
+  <xacro:book_cube 
+      name="bestview"
+      weight="0.056"
+      mesh="medicine/box-bestview.dae"
+      xsize="0.076"
+      ysize="0.060"
+      zsize="0.085"
+  />
+
+  <!-- pack of Lipton orange tea bags -->
+  <xacro:book_cube 
+      name="lipton"
+      weight="0.055"
+      mesh="medicine/box-lipton.dae"
+      xsize="0.097"
+      ysize="0.060"
+      zsize="0.097"
+  />
+
+  <!-- kitchen cleaning sponge -->
+  <xacro:book_cube 
+      name="sponge"
+      weight="0.060"
+      mesh="medicine/box-sponge.dae"
+      xsize="0.090"
+      ysize="0.055"
+      zsize="0.030"
+  />
+
+
+
+
+
+
+  <joint name="world_aronal_joint" type="floating">
+     <parent link="world" />
+     <child  link="aronal_link" />
+     <origin xyz="0 0.1 0.4" rpy="0 0.1 0" />
+  </joint>
+
+  <joint name="world_ass_joint" type="floating">
+     <parent link="world" />
+     <child  link="ass_ratiopharm_link" />
+     <origin xyz="0 0.2 0.4" rpy="0 0.2 0" />
+  </joint>
+
+  <joint name="world_cetirizin_joint" type="floating">
+     <parent link="world" />
+     <child  link="cetirizin_link" />
+     <origin xyz="0 0.3 0.4" rpy="0 0.3 0" />
+  </joint>
+
+  <joint name="world_lopedium_joint" type="floating">
+     <parent link="world" />
+     <child  link="lopedium_link" />
+     <origin xyz="0 0.4 0.4" rpy="0 0.4 0" />
+  </joint>
+
+  <joint name="world_bestview_joint" type="floating">
+     <parent link="world" />
+     <child  link="bestview_link" />
+     <origin xyz="0 0.5 0.4" rpy="0 0.5 0" />
+  </joint>
+
+  <joint name="world_sponge_joint" type="floating">
+     <parent link="world" />
+     <child  link="sponge_link" />
+     <origin xyz="0 0.6 0.1" rpy="0 0.6 0" />
+  </joint>
+
+  <joint name="world_kokett_joint" type="floating">
+     <parent link="world" />
+     <child  link="kokett_link" />
+     <origin xyz="0 0.7 0.1" rpy="0 0.1 0.1" />
+  </joint>
+
+  <joint name="world_doppelherz_joint" type="floating">
+     <parent link="world" />
+     <child  link="doppelherz_link" />
+     <origin xyz="0 0.8 0.1" rpy="0 0.1 0.1" />
+  </joint>
+
+
+
+  <joint name="world_pflaster_joint" type="floating">
+     <parent link="world" />
+     <child  link="pflaster_link" />
+     <origin xyz="0.3 0 0.4" rpy="0.0 0 0" />
+  </joint>
+
+  <joint name="world_cremeseife_joint" type="floating">
+     <parent link="world" />
+     <child  link="cremeseife_link" />
+     <origin xyz="0.3 0.1 0.4" rpy="0 0.1 0" />
+  </joint>
+
+  <joint name="world_lipton_joint" type="floating">
+     <parent link="world" />
+     <child  link="lipton_link" />
+     <origin xyz="0.3 0.3 0.4" rpy="0 0.1 0" />
+  </joint>
+
+
+</robot>
+

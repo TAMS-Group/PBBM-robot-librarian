@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+pr2_description's hokuyo macro does not provide a visual link
+as the internal scanner is part of the pr2 base.
+-->
+<robot name="marker" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find tams_apriltags)/urdf/apriltag_marker.xacro" />
+
+
+  <link name="shelf">
+          <origin xyz="1 1 1" rpy="0 0 0" />
+  </link>
+
+  <apriltag_marker namespace="" name="tag_100" parent="shelf"  
+          family="36h11" ID="$100" size="${0.144*10/8}">
+          <origin xyz="1 1 1" rpy="0 0 0" />
+          <!-- <origin xyz="${0.765+0.016*2-0.144*10/8/2} ${-1.25+0.144*10/8/2}  ${-(0.36+0.016)}" rpy="1.570796327 1.570796327 0" /> -->
+  </apriltag_marker>
+
+</robot>

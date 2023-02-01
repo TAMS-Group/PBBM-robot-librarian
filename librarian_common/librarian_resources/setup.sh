@@ -1,0 +1,9 @@
+#!/bin/bash
+echo "Script executed from: ${PWD}"
+export GAZEBO_MASTER_URI=http://localhost:11345
+export GAZEBO_MODEL_DATABASE_URI=http://gazebosim.org/models
+export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-9:${GAZEBO_RESOURCE_PATH}
+export GAZEBO_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/gazebo-9/plugins:${GAZEBO_PLUGIN_PATH}
+export GAZEBO_MODEL_PATH=${PWD}/models:${GAZEBO_MODEL_PATH}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/x86_64-linux-gnu/gazebo-9/plugins
+export OGRE_RESOURCE_PATH=/usr/lib/x86_64-linux-gnu/OGRE-1.9.0

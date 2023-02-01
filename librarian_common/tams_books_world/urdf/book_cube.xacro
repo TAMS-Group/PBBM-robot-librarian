@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<robot name="book_cube" 
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- 
+       basic ROS xacro macro for a "book": a cube with textures.
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+<xacro:macro name="book_cube" params="name weight mesh xsize ysize zsize">
+
+  <!-- main body with Collada mesh for both visual and collision -->
+  <link name="${name}_link">
+    <inertial>
+      <mass value="${weight}"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- fixed faked
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+      -->
+      <inertia ixx="${weight/12*(ysize*ysize+zsize*zsize)}"
+               iyy="${weight/12*(xsize*xsize+zsize*zsize)}"
+               izz="${weight/12*(xsize*xsize+ysize*ysize)}"
+               ixy="0" ixz="0" iyz="0" />
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="${xsize} ${ysize} ${zsize}" rpy="0 0 0" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://tams_books_world/meshes/${mesh}" scale="${0.5*xsize} ${0.5*ysize} ${0.5*zsize}" />
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="${name}_link">
+    <!-- material/texture definition for Gazebo -->
+    <!-- <material>Gazebo/White</material> -->
+    <turnGravityOff>false</turnGravityOff>
+    <selfCollide>true</selfCollide>
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <kp>10000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
+</xacro:macro>
+
+</robot>
+

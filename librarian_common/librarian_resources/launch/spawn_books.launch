@@ -1,0 +1,50 @@
+<launch>
+  <include file="$(find tams_books_world)/launch/spawn_book_gazebo.launch"> 
+    <arg name="xacro_file" value="book_lagemann.xacro" />
+    <arg name="model_name" value="book_lagemann" />
+    <arg name="x" value="0.7588" />
+    <arg name="y" value="0.303" />
+    <arg name="z" value="0.7301" />
+    <arg name="roll" value="0" />
+    <arg name="pitch" value="0" />
+    <arg name="yaw" value="-1.57" />
+  </include>  
+
+  <include file="$(find tams_books_world)/launch/spawn_book_gazebo.launch"> 
+    <arg name="xacro_file" value="book_rojas.xacro" />
+    <arg name="model_name" value="book_rojas" />
+    <arg name="x" value="0.7566" />
+    <arg name="y" value="0.303" />
+    <arg name="z" value="0.7301" />
+    <arg name="roll" value="0" />
+    <arg name="pitch" value="0" />
+    <arg name="yaw" value="-1.57" />
+  </include>  
+
+  <include file="$(find tams_books_world)/launch/spawn_book_gazebo.launch"> 
+    <arg name="xacro_file" value="book_knuth_40.xacro" />
+    <arg name="model_name" value="book_knuth_40" />
+    <arg name="x" value="0.7166" />
+    <arg name="y" value="0.303" />
+    <arg name="z" value="0.7301" />
+    <arg name="roll" value="0" />
+    <arg name="pitch" value="0" />
+    <arg name="yaw" value="-1.57" />
+  </include> 
+
+
+  <include file="$(find tams_books_world)/launch/spawn_book_gazebo.launch"> 
+    <arg name="xacro_file" value="book_dyson.xacro" />
+    <arg name="model_name" value="book_dyson" />
+    <arg name="x" value="0.6966" />
+    <arg name="y" value="0.303" />
+    <arg name="z" value="0.7301" />
+    <arg name="roll" value="0" />
+    <arg name="pitch" value="0" />
+    <arg name="yaw" value="-1.57" />
+  </include> 
+  
+ 
+
+
+</launch>

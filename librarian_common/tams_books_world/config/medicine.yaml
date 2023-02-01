@@ -1,0 +1,69 @@
+# medicine.yaml: data of our medicine boxes in YAML format
+#
+medicine:
+
+  aronal:
+    author: "GABA"
+    title:  "Aronal/Elmex toothpaste travel pack"
+    size:   [0.051, 0.021, 0.092]
+    weight: 0.040
+
+  ass_ratiopharm:
+    author: "ratiopharm"
+    title:  "ASS-ratiopharm 500mg 30 N2"
+    size:   [0.105, 0.025, 0.043]
+    weight: 0.040
+
+  bestview:
+    author: "Rossmann Bestview brand"
+    title:  "Pack of Bestview lens-cleaning towels"
+    size:   [0.076, 0.060, 0.085]
+    weight: 0.100
+
+  cetirizin:
+    author: "ADGC"
+    title:  "Cetirizin-ADGC 50 N2"
+    size:   [0.086, 0.030, 0.036]
+    weight: 0.060
+
+  cremeseife:
+    author: "Today"
+    title:  "Today Cremeseife mild"
+    size:   [0.093, 0.036, 0.064]
+    weight: 0.150
+
+  doppelherz:
+    author:  "Doppelherz"
+    title:   "Vitamin D 45 Tabletten"
+    size:    0.085, 0.030, 0.125]
+    weight:  0.0125
+
+  kokett:
+    author: "unknown"
+    title:  "Pack of paper tissues"
+    size:   [0.055, 0.023, 0.106]
+    weight: 0.050
+
+  lopedium:
+    author: "unknown"
+    title:  "Lopedium 10 N1"
+    size:   [0.097, 0.022, 0.045]
+    weight:  0.04
+
+  lipton:
+    author: "Lipton"
+    title:  "Lipton green tea Mandarino Orange"
+    size:   [0.097, 0.060, 0.097]
+    weight: 0.055
+
+  pflaster:
+    author: "Schlecker AS brand"
+    title:  "Pack of band-aid"
+    size:   [0.074, 0.020, 0.107]
+    weight: 0.200
+
+  sponge:
+    author: "unknown"
+    title:  "Kitchen cleaning sponge"
+    size:   [0.090, 0.055, 0.030]
+    weight: 0.060

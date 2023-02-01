@@ -1,0 +1,294 @@
+<html>
+
+<body>
+    <div id="main">
+        <div class="contents" id="show">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+            <img src="">
+        </div>
+        <p id="test"></p>
+        <div class="contents">
+            <img onclick="note(0)" src="spines/">
+            <img onclick="note(1)" src="spines/id_1.png">
+            <img onclick="note(2)" src="spines/id_2.png">
+            <img onclick="note(3)" src="spines/id_3.png">
+            <img onclick="note(4)" src="spines/id_4.png">
+            <img onclick="note(5)" src="spines/id_5.png">
+            <img onclick="note(6)" src="spines/id_6.png">
+            <img onclick="note(7)" src="spines/id_7.png">
+            <img onclick="note(8)" src="spines/id_8.png">
+            <img onclick="note(9)" src="spines/id_9.png">
+            <img onclick="note(10)" src="spines/id_10.png">
+            <img onclick="note(11)" src="spines/id_11.png">
+            <img onclick="note(12)" src="spines/id_12.png">
+            <img onclick="note(13)" src="spines/id_13.png">
+            <img onclick="note(14)" src="spines/id_14.png">
+            <img onclick="note(15)" src="spines/id_15.png">
+        </div>
+    </div>
+
+    <pre id="out"></pre>
+
+    <button onclick="undo()">Undo</button>
+</body>
+
+</html>
+
+<script>
+
+    dirs = ['hsv/2023-01-20_18-07-48',
+        'hsv/2023-01-20_18-08-08',
+        'hsv/2023-01-20_18-08-28',
+        'hsv/2023-01-20_18-08-48',
+        'hsv/2023-01-20_18-09-08',
+        'hsv/2023-01-20_18-09-30',
+        'hsv/2023-01-20_18-09-50',
+        'hsv/2023-01-20_18-10-11',
+        'hsv/2023-01-20_18-10-33',
+        'hsv/2023-01-20_18-10-53',
+        'hsv/2023-01-20_18-17-11',
+        'hsv/2023-01-20_18-17-32',
+        'hsv/2023-01-20_18-17-52',
+        'hsv/2023-01-20_18-18-14',
+        'hsv/2023-01-20_18-18-35',
+        'hsv/2023-01-20_18-18-56',
+        'hsv/2023-01-20_18-19-17',
+        'hsv/2023-01-20_18-19-37',
+        'hsv/2023-01-20_18-19-58',
+        'hsv/2023-01-20_18-20-18',
+        'hsv/2023-01-20_18-23-43',
+        'hsv/2023-01-20_18-24-07',
+        'hsv/2023-01-20_18-24-27',
+        'hsv/2023-01-20_18-24-48',
+        'hsv/2023-01-20_18-25-12',
+        'hsv/2023-01-20_18-25-32',
+        'hsv/2023-01-20_18-25-54',
+        'hsv/2023-01-20_18-26-14',
+        'hsv/2023-01-20_18-26-35',
+        'hsv/2023-01-20_18-26-57',
+        'hsv/2023-01-20_18-36-08',
+        'hsv/2023-01-20_18-36-28',
+        'hsv/2023-01-20_18-36-50',
+        'hsv/2023-01-20_18-37-10',
+        'hsv/2023-01-20_18-37-29',
+        'hsv/2023-01-20_18-37-50',
+        'hsv/2023-01-20_18-38-11',
+        'hsv/2023-01-20_18-38-29',
+        'hsv/2023-01-20_18-38-50',
+        'hsv/2023-01-20_18-39-12',
+        'hsv/2023-01-20_18-41-49',
+        'hsv/2023-01-20_18-42-10',
+        'hsv/2023-01-20_18-42-31',
+        'hsv/2023-01-20_18-42-52',
+        'hsv/2023-01-20_18-43-13',
+        'hsv/2023-01-20_18-43-32',
+        'hsv/2023-01-20_18-43-55',
+        'hsv/2023-01-20_18-44-16',
+        'hsv/2023-01-20_18-44-35',
+        'hsv/2023-01-20_18-44-55',
+        'hsv/2023-01-20_18-50-00',
+        'hsv/2023-01-20_18-50-24',
+        'hsv/2023-01-20_18-50-47',
+        'hsv/2023-01-20_18-51-08',
+        'hsv/2023-01-20_18-51-33',
+        'hsv/2023-01-20_18-51-56',
+        'hsv/2023-01-20_18-52-20',
+        'hsv/2023-01-20_18-52-43',
+        'hsv/2023-01-20_18-53-04',
+        'hsv/2023-01-20_18-53-29',
+        'hsv/2023-01-20_18-55-58',
+        'hsv/2023-01-20_18-56-20',
+        'hsv/2023-01-20_18-56-41',
+        'hsv/2023-01-20_18-57-01',
+        'hsv/2023-01-20_18-57-23',
+        'hsv/2023-01-20_18-57-47',
+        'hsv/2023-01-20_18-58-08',
+        'hsv/2023-01-20_18-58-30',
+        'hsv/2023-01-20_18-58-51',
+        'hsv/2023-01-20_18-59-10',
+        'hsv/2023-01-20_19-02-34',
+        'hsv/2023-01-20_19-03-00',
+        'hsv/2023-01-20_19-03-25',
+        'hsv/2023-01-20_19-03-49',
+        'hsv/2023-01-20_19-04-20',
+        'hsv/2023-01-20_19-04-44',
+        'hsv/2023-01-20_19-05-07',
+        'hsv/2023-01-20_19-05-31',
+        'hsv/2023-01-20_19-05-56',
+        'hsv/2023-01-20_19-06-20',
+        'hsv/2023-01-20_19-08-33',
+        'hsv/2023-01-20_19-08-50',
+        'hsv/2023-01-20_19-09-11',
+        'hsv/2023-01-20_19-09-29',
+        'hsv/2023-01-20_19-09-48',
+        'hsv/2023-01-20_19-10-06',
+        'hsv/2023-01-20_19-10-22',
+        'hsv/2023-01-20_19-10-40',
+        'hsv/2023-01-20_19-10-58',
+        'hsv/2023-01-20_19-11-18',
+        'hsv/2023-01-20_19-15-25',
+        'hsv/2023-01-20_19-15-42',
+        'hsv/2023-01-20_19-15-59',
+        'hsv/2023-01-20_19-16-16',
+        'hsv/2023-01-20_19-16-32',
+        'hsv/2023-01-20_19-16-49',
+        'hsv/2023-01-20_19-17-07',
+        'hsv/2023-01-20_19-17-28',
+        'hsv/2023-01-20_19-17-47',
+        'hsv/2023-01-20_19-18-04',
+        'hsv/2023-01-20_19-22-42',
+        'hsv/2023-01-20_19-23-08',
+        'hsv/2023-01-20_19-23-38',
+        'hsv/2023-01-20_19-24-06',
+        'hsv/2023-01-20_19-24-34',
+        'hsv/2023-01-20_19-25-02',
+        'hsv/2023-01-20_19-25-30',
+        'hsv/2023-01-20_19-25-59',
+        'hsv/2023-01-20_19-26-28',
+        'hsv/2023-01-20_19-26-57',
+        'hsv/2023-01-25_16-46-22',
+        'hsv/2023-01-25_16-46-58',
+        'hsv/2023-01-25_16-47-33',
+        'hsv/2023-01-25_16-48-08',
+        'hsv/2023-01-25_16-48-42',
+        'hsv/2023-01-25_16-49-17',
+        'hsv/2023-01-25_16-49-52',
+        'hsv/2023-01-25_16-50-26',
+        'hsv/2023-01-25_16-51-02',
+        'hsv/2023-01-25_16-51-40',
+        'hsv/2023-01-25_16-56-19',
+        'hsv/2023-01-25_16-56-55',
+        'hsv/2023-01-25_16-57-33',
+        'hsv/2023-01-25_16-58-13',
+        'hsv/2023-01-25_16-58-51',
+        'hsv/2023-01-25_16-59-30',
+        'hsv/2023-01-25_17-00-11',
+        'hsv/2023-01-25_17-00-48',
+        'hsv/2023-01-25_17-01-24',
+        'hsv/2023-01-25_17-02-01',
+        'hsv/2023-01-25_17-07-14',
+        'hsv/2023-01-25_17-07-53',
+        'hsv/2023-01-25_17-08-31',
+        'hsv/2023-01-25_17-09-12',
+        'hsv/2023-01-25_17-09-52',
+        'hsv/2023-01-25_17-10-35',
+        'hsv/2023-01-25_17-11-18',
+        'hsv/2023-01-25_17-11-58',
+        'hsv/2023-01-25_17-12-37',
+        'hsv/2023-01-25_17-13-19',
+        'hsv/2023-01-25_17-17-54',
+        'hsv/2023-01-25_17-18-35',
+        'hsv/2023-01-25_17-19-14',
+        'hsv/2023-01-25_17-19-53',
+        'hsv/2023-01-25_17-20-32',
+        'hsv/2023-01-25_17-21-10',
+        'hsv/2023-01-25_17-21-51',
+        'hsv/2023-01-25_17-22-30',
+        'hsv/2023-01-25_17-23-08',
+        'hsv/2023-01-25_17-23-46']
+
+    index = localStorage.getItem('index');
+    index = index ? parseInt(index) : 1;
+    current = localStorage.getItem('current');
+    current = current ? parseInt( current) : 0;
+
+    out = localStorage.getItem("librarian_out");
+    out = out ? out : '';
+    document.getElementById("out").innerText = out;
+
+    function put_detections(dir, index) {
+        imgs = document.getElementById("show").querySelectorAll('img');
+        for (let i = 0; i < imgs.length; i++) {
+            imgs[i].src = `${dir}/${index}/${i}.jpg`;
+        }
+    }
+
+    function note(book_id) {
+        out += `${dirs[current]}/${index}: ${book_id}\n`;
+        document.getElementById("out").innerText = out;
+        
+        index += 1;
+        if (index == 16) {
+            index = 1;
+            current += 1;
+        }
+        put_detections(dirs[current], index);
+        
+        localStorage.setItem("librarian_out", out);
+        localStorage.setItem("index", index);
+        localStorage.setItem("current", current);
+        document.getElementById("test").innerText = (current * 15) + index;
+    }
+
+    function undo() {
+        index -= 1;
+        if (index <= 0) {
+            index = 15;
+            current -= 1;
+        }
+        put_detections(dirs[current], index);
+
+        out_lines = out.split('\n');
+        out_lines.pop();
+        out_lines.pop();
+        out = out_lines.join('\n') + '\n';
+        document.getElementById("out").innerText = out;
+        document.getElementById("test").innerText = (current * 15) + index;
+
+
+        localStorage.setItem("librarian_out", out);
+        localStorage.setItem("index", index);
+        localStorage.setItem("current", current);
+    }
+
+    put_detections(dirs[current], index);
+    document.getElementById("test").innerText = (current * 15) + index;
+
+</script>
+
+<style>
+    body {
+        display: flex;
+
+    }
+
+    .contents {
+        display: flex;
+        height: 300px;
+    }
+
+    .contents img {
+        margin: 5px;
+        width: 50px;
+        height: 300px;
+    }
+
+    #main {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    #out {
+        flex: .5;
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        overflow: auto;
+        max-height: 80vh;
+    }
+</style>

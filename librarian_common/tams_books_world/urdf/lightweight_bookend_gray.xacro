@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<robot name="lightweight_bookend_demo"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of the "Lightweight Bookend" from thingiverse:
+
+       https://www.thingiverse.com/thing:2769159
+       Lightweight Bookend by xyzaxis is licensed under the Creative Commons - Attribution - Non-Commercial license.
+       http://creativecommons.org/licenses/by-nc/3.0/
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/lightweight_bookend.xacro" />
+
+  <xacro:lightweight_bookend name="lightweight_bookend" yscale="3.0" />
+
+
+</robot>

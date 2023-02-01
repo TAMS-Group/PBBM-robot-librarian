@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<robot name="book_logic"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of Hörbst, Ed., "Logic Design and Simulation", North Holland 1986
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <!-- main body with Collada mesh for both visual and collision -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+  <xacro:book_cube 
+      name="book_logic"
+      weight="0.623"
+      mesh="book-logic.dae"
+      xsize="0.173"
+      ysize="0.020"
+      zsize="0.245"
+  />
+
+</robot>
+

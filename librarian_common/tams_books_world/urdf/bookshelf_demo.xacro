@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<robot name="bookshelf_demo"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gazebo/Moveit "world" with lots of bookshelves...
+
+       (C) 2021 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/bookshelf.xacro" />
+
+  <link name="world" />
+
+  <xacro:bookshelf_2 name="bookshelf_a" sx="0.4" sy="0.9" sz="0.6" tt="0.02" rear_board="true" />
+
+  <joint name="bookshelf_a_joint" type="fixed">
+    <parent link="world" />
+    <child  link="bookshelf_a" />
+    <origin xyz="0.5 -1.0 0" rpy="0 0 -0.3" />
+  </joint>
+
+  <xacro:bookshelf_2 name="bookshelf_b" sx="0.4" sy="0.9" sz="1.1" tt="0.05" rear_board="false" 
+                     meshname="board-medium.dae" />
+
+  <joint name="bookshelf_b_joint" type="fixed">
+    <parent link="world" />
+    <child  link="bookshelf_b" />
+    <origin xyz="0.5 0 0" rpy="0 0 0" />
+  </joint>
+
+  <xacro:bookshelf_4 name="bookshelf_c" sx="0.35" sy="0.7" sz="1.8" tt="0.02" rear_board="true" 
+                     meshname="board-dark.dae" />
+
+  <joint name="bookshelf_c_joint" type="fixed">
+    <parent link="world" />
+    <child  link="bookshelf_c" />
+    <origin xyz="0.5 1.0 0" rpy="0 0 0" />
+  </joint>
+
+</robot>
+

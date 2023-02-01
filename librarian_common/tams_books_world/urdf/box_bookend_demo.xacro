@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<robot name="box_bookend_demo"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find tams_books_world)/urdf/box_bookend.xacro" />
+
+  <xacro:box_bookend name="bookend_1" weight="10" xsize="0.3" ysize="0.2" zsize="0.2" />
+
+</robot>

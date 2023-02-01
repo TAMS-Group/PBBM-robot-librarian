@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="/use_sim_time" value="true" />
+    <param name="/librarian/source_frame" value="azure_kinect_rgb_camera_link" />
+
+    <remap from="/librarian/camera_info" to="/azure_kinect/rgb/camera_info" />
+    <remap from="/librarian/input_image" to="/azure_kinect/rgb/image_rect_color" />
+    <remap from="/librarian/points2" to="/azure_kinect/points2" />
+
+    <include file="$(find librarian_vision_node)/launch/librarian_vision.launch">
+        <arg name="camera_frame" value="azure_kinect_rgb_camera_link" />
+    </include>
+</launch>

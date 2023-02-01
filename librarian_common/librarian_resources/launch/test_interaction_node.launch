@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find tams_pr2_moveit_config)/launch/demo.launch"/>
+  <include file="$(find librarian_grasping_initial)/launch/tf_shelf_broadcaster.launch"/> 
+  <node name="test_interaction" pkg="librarian_resources" type="test_interaction_node.py" respawn="false" output="screen" />
+</launch>

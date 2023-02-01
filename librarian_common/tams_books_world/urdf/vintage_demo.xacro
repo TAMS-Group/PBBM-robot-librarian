@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<robot name="library_demo"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gazebo/Moveit "world" with two bookshelves and one "counter"
+
+       (C) 2021 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <property name="r0" value="0.3" />
+  <property name="dr" value="0.04" />
+  <property name="pi2" value="6.283" />
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/vintage_shelf_1.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/vintage_shelf_2.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/vintage_shelf_3.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/vintage_shelf_4.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/vintage_shelf_5.xacro" />
+
+  <link name="world" />
+
+  <!-- two bookshelves on floating joints -->
+
+  <joint name="vintage_shelf_1_joint" type="floating">
+    <parent link="world" />
+    <child  link="vintage_shelf_1_link" />
+    <origin xyz="1 0 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="vintage_shelf_2_joint" type="floating">
+    <parent link="world" />
+    <child  link="vintage_shelf_2_link" />
+    <origin xyz="3 0 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="vintage_shelf_3_joint" type="floating">
+    <parent link="world" />
+    <child  link="vintage_shelf_3_link" />
+    <origin xyz="3 2 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="vintage_shelf_4_joint" type="floating">
+    <parent link="world" />
+    <child  link="vintage_shelf_4_link" />
+    <origin xyz="3 4 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="vintage_shelf_5_joint" type="floating">
+    <parent link="world" />
+    <child  link="vintage_shelf_5_link" />
+    <origin xyz="0 3 0" rpy="0 0 0" />
+  </joint>
+
+</robot>

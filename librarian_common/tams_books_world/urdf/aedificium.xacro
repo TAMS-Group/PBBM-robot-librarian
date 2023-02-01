@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<robot name="bookshelf"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of the "Labyrinth Library" from Umberto Eco's
+       novel "The name of the rose".
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2021 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+
+  <!-- The Aedificium library floor. -->
+  <xacro:macro name="aedificium" params="name parent *origin">
+    <link name="${name}" >
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="100000" />
+        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://tams_books_world/meshes/aedificium/aedificium.stl" scale="0.001 0.001 0.001 " />
+        </geometry>
+      </collision>
+      <visual> 
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <material name="${name}/unused_material" >
+          <color rgba="0.8 0.85 0.82 1.0" />
+        </material>
+        <geometry>
+          <mesh filename="package://tams_books_world/meshes/aedificium/aedificium.stl" scale="0.001 0.001 0.001 " />
+        </geometry>
+      </visual>
+    </link>
+
+    <gazebo reference="${name}">
+       <!-- material/texture definition for Gazebo -->
+       <!-- <material>Gazebo/White</material> -->
+       <turnGravityOff>false</turnGravityOff>
+       <selfCollide>false</selfCollide>
+       <mu1>1</mu1>
+       <mu2>1</mu2>
+       <kp>1000000.0</kp>
+       <kd>10.0</kd>
+     </gazebo>
+
+    <joint name="${name}_mount_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="${name}" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+  </xacro:macro>
+
+
+</robot>

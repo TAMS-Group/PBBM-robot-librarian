@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<robot name="book_rice"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of a pack (500gr) of rice.
+
+       (C) 2022 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <!-- main body with Collada mesh for both visual and collision -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+  <xacro:book_cube 
+      name="book_rice"
+      weight="0.528"
+      mesh="book-rice.dae"
+      xsize="0.122"
+      ysize="0.045"
+      zsize="0.171"
+  />
+
+</robot>
+

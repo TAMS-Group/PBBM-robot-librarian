@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<robot name="book_minsky"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of "Minsky: Society of Mind".
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <!-- main body with Collada mesh for both visual and collision -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+  <xacro:book_cube 
+      name="book_minsky"
+      weight="0.764"
+      mesh="book-minsky.dae"
+      xsize="0.215"
+      ysize="0.019"
+      zsize="0.280"
+  />
+
+</robot>
+

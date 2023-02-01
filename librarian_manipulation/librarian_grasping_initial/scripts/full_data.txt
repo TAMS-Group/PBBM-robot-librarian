@@ -1,0 +1,20 @@
+Data for the experiment of executing the full pick and place pipeline. In the following, w will stand for the white book, r for the red book and y for the yellow book. Further, s will stand for an successful attempt and f for a failure. 
+attempt | book_order | outcome 
+1 | ['r', 'y', 'w'] | sss 
+2 | ['y', 'w', 'r'] | sss 
+3 | ['r', 'w', 'y'] | fff 
+4 | ['w', 'y', 'r'] | sff 
+5 | ['y', 'r', 'w'] | sfs 
+6 | ['w', 'y', 'r'] | sss 
+7 | ['w', 'r', 'y'] | fss 
+8 | ['r', 'y', 'w'] | fff (technical issue - not counted)
+9 | ['y', 'w', 'r'] | sss 
+10 | ['y', 'r', 'w'] | fff (technical issue - not counted)
+11 | ['r', 'y', 'w'] | sff 
+12 | ['y', 'r', 'w'] | sff 
+13 | ['y', 'w', 'r'] | sff 
+14 | ['r', 'y', 'w'] | fff 
+15 | ['y', 'w', 'r'] | fff (technical issue - not counted)
+16 | ['r', 'y', 'w'] | ssf 
+17 | ['y', 'r', 'w'] | ssf 
+18 | ['y', 'r', 'w'] | sss 

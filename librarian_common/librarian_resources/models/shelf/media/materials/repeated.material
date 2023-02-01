@@ -1,0 +1,16 @@
+material RepeatedTexture
+{
+  technique 
+  {
+    pass
+    {
+      lightning on
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture grass.png
+	scale 1 1
+      }
+    }
+  }
+}

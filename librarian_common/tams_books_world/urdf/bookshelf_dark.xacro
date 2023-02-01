@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<robot name="bookshelf_teak"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gazebo/Moveit model of a 2-board bookshelf
+
+       (C) 2021 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/bookshelf.xacro" />
+
+  <xacro:bookshelf_4 name="bookshelf_teak" sx="0.40" sy="0.8" sz="1.8" tt="0.02" 
+                     meshname="board-dark.dae" rear_board="true" >
+  </xacro:bookshelf_4>
+
+</robot>
+

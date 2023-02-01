@@ -1,0 +1,260 @@
+<?xml version="1.0" ?>
+<robot name="articulate_book_caterpillar"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" 
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" 
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" 
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of "Eric Carle: The Very Hungry Caterpillar"
+       with some rotational joints, 13 page_s overall.
+       Origin and center of mass are at the center of the mesh.
+       Book has landscape format, size 0.310 x 0.216 x 0.013 m
+       (x left-right, y page_1-n, z up).
+
+       Pages 5/6/7/8 ("monday" .. "thursday") have smaller page_ size.
+       We also make page 1 and 13 (first and last) a bit wider.
+   
+       We have 13 parts, one page_ each.
+       This corresponds to 1/13 of the total weight (0.51kg) 
+       and the same ratio of the total book ysize.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_part.xacro" />
+
+  <!-- main link, no inertia, no collision, no visual -->
+  <link name="book_caterpillar_link" >  
+    <!--
+    <visual>
+      <origin xyz="${0.216/2} 0 0" rpy="0 0 0" />
+      <geometry>  
+        <box size="0.310 0.013 0.216" rpy="0 0 0" />
+      </geometry>
+    </visual>
+    -->
+  </link>
+
+  <xacro:book_part 
+      name="book_caterpillar_page_01"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-01.dae"
+      xsize="0.312"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_02"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-02.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_03"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-03.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_04"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-04.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_05"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-05.dae"
+      xsize="${0.310/5}"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_06"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-06.dae"
+      xsize="${0.310/5*2}"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_07"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-07.dae"
+      xsize="${0.310/5*3}"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_08"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-08.dae"
+      xsize="${0.310/5*4}"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_09"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-09.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_10"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-10.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_11"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-11.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_12"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-12.dae"
+      xsize="0.310"
+      ysize="0.001"
+      zsize="0.216"
+  />
+  <xacro:book_part 
+      name="book_caterpillar_page_13"
+      weight="0.039"
+      mesh="caterpillar/book-caterpillar-part-13.dae"
+      xsize="0.312"
+      ysize="0.001"
+      zsize="0.216"
+  />
+
+
+  <!-- back part of the book fixed to the root link -->
+  <joint name="book_caterpillar_page_13_joint" type="fixed" >
+    <parent link="book_caterpillar_link" />
+    <child  link="book_caterpillar_page_13_link" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="book_caterpillar_page_12_joint" type="revolute" >
+    <parent link="book_caterpillar_page_13_link" />
+    <child  link="book_caterpillar_page_12_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_11_joint" type="revolute" >
+    <parent link="book_caterpillar_page_12_link" />
+    <child  link="book_caterpillar_page_11_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_10_joint" type="revolute" >
+    <parent link="book_caterpillar_page_11_link" />
+    <child  link="book_caterpillar_page_10_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_09_joint" type="revolute" >
+    <parent link="book_caterpillar_page_10_link" />
+    <child  link="book_caterpillar_page_09_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_08_joint" type="revolute" >
+    <parent link="book_caterpillar_page_09_link" />
+    <child  link="book_caterpillar_page_08_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_07_joint" type="revolute" >
+    <parent link="book_caterpillar_page_08_link" />
+    <child  link="book_caterpillar_page_07_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_06_joint" type="revolute" >
+    <parent link="book_caterpillar_page_07_link" />
+    <child  link="book_caterpillar_page_06_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_05_joint" type="revolute" >
+    <parent link="book_caterpillar_page_06_link" />
+    <child  link="book_caterpillar_page_05_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_04_joint" type="revolute" >
+    <parent link="book_caterpillar_page_05_link" />
+    <child  link="book_caterpillar_page_04_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_03_joint" type="revolute" >
+    <parent link="book_caterpillar_page_04_link" />
+    <child  link="book_caterpillar_page_03_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_02_joint" type="revolute" >
+    <parent link="book_caterpillar_page_03_link" />
+    <child  link="book_caterpillar_page_02_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+
+  <joint name="book_caterpillar_page_01_joint" type="revolute" >
+    <parent link="book_caterpillar_page_02_link" />
+    <child  link="book_caterpillar_page_01_link" />
+    <axis xyz="0 0 1" />
+    <origin xyz="0 ${-0.013/13} 0" rpy="0 0 0" />
+    <limit lower="-3.20" upper="0.0" effort="1" velocity="1" />
+  </joint>
+ 
+
+  <!-- gazebo only  -->
+  <link name="world" />
+
+  <joint name="book_caterpillar_world_joint" type="fixed" >
+    <parent link="world" />
+    <child  link="book_caterpillar_link" />
+    <origin xyz="0 0 0.2" rpy="0 0 0" />
+  </joint>
+  <!-- -->
+
+</robot>
+

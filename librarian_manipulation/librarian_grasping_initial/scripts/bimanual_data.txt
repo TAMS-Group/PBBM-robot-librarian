@@ -1,0 +1,58 @@
+Data for the experiment of bimanually grasping and extracting a book from a shelf. In the following, w will stand for the white book, r for the red book and y for the yellow book. Further, s will stand for an successful attempt and f for a failure. 
+attempt | book_order | target_book | outcome 
+1 | ['r', 'y', 'w'] | r | s 
+2 | ['r', 'y', 'w'] | y | s 
+3 | ['w', 'r', 'y'] | r | s 
+4 | ['w', 'y', 'r'] | r | s 
+5 | ['y', 'r', 'w'] | w | s 
+6 | ['r', 'y', 'w'] | r | s 
+7 | ['w', 'r', 'y'] | r | s 
+8 | ['y', 'r', 'w'] | y | s 
+9 | ['r', 'w', 'y'] | r | s 
+10 | ['w', 'y', 'r'] | y | s 
+11 | ['w', 'y', 'r'] | r | s 
+12 | ['r', 'y', 'w'] | y | f 
+13 | ['y', 'r', 'w'] | r | f 
+14 | ['w', 'y', 'r'] | r | s 
+15 | ['w', 'y', 'r'] | y | s 
+16 | ['r', 'y', 'w'] | r | s 
+17 | ['y', 'w', 'r'] | r | s 
+18 | ['y', 'r', 'w'] | r | s 
+19 | ['y', 'r', 'w'] | w | s 
+20 | ['r', 'y', 'w'] | w | s 
+21 | ['w', 'y', 'r'] | r | f (human error) 
+22 | ['w', 'y', 'r'] | w | s 
+23 | ['y', 'w', 'r'] | w | s 
+24 | ['r', 'w', 'y'] | w | s 
+25 | ['y', 'w', 'r'] | y | s 
+26 | ['y', 'r', 'w'] | w | s 
+27 | ['w', 'r', 'y'] | r | s 
+28 | ['y', 'w', 'r'] | y | s 
+29 | ['y', 'w', 'r'] | r | s 
+30 | ['r', 'w', 'y'] | w | s 
+31 | ['y', 'r', 'w'] | r | s 
+32 | ['y', 'r', 'w'] | r | s 
+33 | ['r', 'w', 'y'] | y | f (human/perception error)
+34 | ['w', 'y', 'r'] | r | s 
+35 | ['y', 'r', 'w'] | y | f 
+36 | ['y', 'r', 'w'] | y | f (manually reproduced error)
+37 | ['y', 'r', 'w'] | y | f 
+38 | ['y', 'r', 'w'] | y | f 
+39 | ['w', 'y', 'r'] | y | f 
+40 | ['r', 'y', 'w'] | y | s 
+41 | ['r', 'w', 'y'] | y | s 
+42 | ['y', 'r', 'w'] | y | f 
+43 | ['w', 'y', 'r'] | y | s 
+44 | ['w', 'y', 'r'] | y | f 
+45 | ['r', 'y', 'w'] | y | f (human/perception error) 
+46 | ['y', 'w', 'r'] | y | s 
+47 | ['w', 'r', 'y'] | w | s 
+48 | ['w', 'r', 'y'] | w | s 
+49 | ['w', 'y', 'r'] | w | s 
+50 | ['r', 'w', 'y'] | w | s 
+51 | ['r', 'y', 'w'] | w | s 
+52 | ['r', 'w', 'y'] | w | s 
+53 | ['y', 'r', 'w'] | w | s 
+54 | ['r', 'w', 'y'] | w | f (human/perception error) 
+55 | ['w', 'r', 'y'] | w | s 
+56 | ['w', 'r', 'y'] | w | s 

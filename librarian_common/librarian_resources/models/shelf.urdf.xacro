@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+pr2_description's hokuyo macro does not provide a visual link
+as the internal scanner is part of the pr2 base.
+-->
+<robot name="shelf" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find tams_apriltags)/urdf/apriltag_marker.xacro" />
+
+  <!-- adapter stl -->
+  <link name="world"/>
+
+  <link name="shelf">
+    <inertial>
+     <origin xyz="${(0.765+0.016*2)/2} ${(0.36+0.016)/2} 0" rpy="0 0 0"/>
+     <mass value="100"/>
+     <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+   </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find librarian_resources)/models/shelf/shelf.dae"/>
+      </geometry>
+
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find librarian_resources)/models/shelf/shelf.dae"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="shelf">
+    <mu1>10</mu1>
+    <mu1>10</mu1>
+  </gazebo>
+<joint name = "fixed_world" type = "fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="shelf"/>
+</joint>
+
+  <apriltag_marker namespace="" name="tag_10" parent="shelf"  
+          family="36h11" ID="10" size="${0.144*10/8}">
+          
+          <origin xyz="0.707 0.376 1.16" rpy="-1.570796327 3.14159265 0" />
+  </apriltag_marker>
+
+</robot>

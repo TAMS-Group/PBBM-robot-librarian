@@ -1,0 +1,235 @@
+# books.yaml: data of our book models (aka boxes) in YAML format
+#
+books:
+
+  book_selfish:
+    author: "Richard Dawkins"
+    title:  "The Selfish Gene"
+    year:   1989 # int
+    size:   [0.130, 0.020, 0.196] # xyz, meters, array of double
+    weight: 0.246 # kg, double
+    cover:  "meshes/selfish-cover.jpg"
+
+  book_dyson:
+    author: "George Dyson"
+    title:  "Darwin among the Machines"
+    year:   1997
+    size:   [0.130, 0.018, 0.197]
+    weight: 0.228
+    cover:  "meshes/dyson-cover.jpg"
+
+  book_knuth_1:
+    author: "Donald E. Knuth"
+    title:  "The Art of Computer Programming, Volume 1"
+    year:   1973
+    size:   [0.167, 0.037, 0.024]
+    weight: 1.080
+    cover:  "meshes/knuth-cover.jpg"
+
+  book_knuth_40:
+    author: "Donald E. Knuth"
+    title:  "The Art of Computer Programming, Volume 4, Fascile 0"
+    subtitle: "Introduction to Combinatorial Algorithms and Boolean Functions"
+    year:   2008
+    size:   [0.161, 0.014, 0.240]
+    weight: 0.400
+
+  book_knuth_41:
+    author: "Donald E. Knuth"
+    title:  "The Art of Computer Programming, Volume 4, Fascile 1"
+    subtitle: "Bitwise Tricks and Techniques, Binary Decision Diagrams"
+    year:   2009
+    size:   [0.161, 0.017, 0.240]
+    weight: 0.498
+
+  book_knuth_42:
+    author: "Donald E. Knuth"
+    title:  "The Art of Computer Programming, Volume 4, Fascile 2"
+    subtitle: "Generating All Tuples and Permutations"
+    year:   2005
+    size:   [0.161, 0.009, 0.240]
+    weight: 0.274
+
+  book_lakoff:
+    author:  "George Lakoff"
+    title:   "Women, Fire, and Dangerous Things"
+    subtitle: "What Categories Reveal about the Mind"
+    year:    1987
+    size:    [0.168, 0.035, 0.240]
+    weight:  0.977
+
+  book_mead_conway:
+    author: "Carver Mead, Lynn Conway"
+    title: "Introduction to VLSI Systems"
+    year:   1980
+    size:   [0.200, 0.025, 0.243]
+    weight:  0.972
+
+  book_minsky:
+    author: "Marvin Minsky"
+    title:  "The Society of Mind"
+    year:   1985
+    size:   [0.215, 0.019, 0.280]
+    weight: 0.764
+
+  book_goedel:
+    author: "Douglas R. Hofstadter"
+    title:  "Gödel, Escher, Bach"
+    subtitle: "xxx"
+    year:   1979 
+    size:   [0.162, 0.055, 0.234]
+    weight: 1.100
+
+  book_jekyll:
+    author: "Robert Louis Stevenson"
+    title:  "Dr. Jekyll and Mr. Hyde"
+    year:   9164
+    size:   [0.110, 0.007, 0.180]
+    weight: 0.056
+
+  book_watson:
+    author: "James D. Watson"
+    title:  "Die Doppel-Helix"
+    year:   1984
+    size:   [0.15, 0.010, 0.190]
+    weight: 0.114
+
+### Machine Learning
+
+  book_haykin:
+    author: "Simon Haykin"
+    title:  "Neural Networks and Learning Machines, 3rd. Edition"
+    year:   2005
+    size:   [0.177, 0.032, 0.230]
+    weight: 1.316
+
+  book_lskm:
+    author: "Leon Bottou, Olivier Chapelle, Dennis DeCoste, Jason Weston, Eds."
+    title:  "Large-Scale Kernel Machines"
+    year:   2007
+    size:   [0.217, 0.024, 0.250]
+    weight: 0.978
+
+  book_wiering:
+    author: "Marco Wiering, Martijn van Otterlo (Eds.)"
+    title:  "Reinforcement Learning - State-of-the-Art"
+    year:   2012
+    size:   [0.155, 0.035, 0.235]
+    weight: 0.964
+
+### Fun 
+
+  book_voynich:
+    author: "Voynich Manuscript"
+    title:  "Voynich Manuscript"
+    comment: "Beinecke Rare Book and Manuscript Library Yale University"
+    url:     "https://brbl-dl.library.yale.edu/vufind/Record/3519597"
+    year:   1150
+    size:   [0.160, 0.050, 0.230]
+    weight: 2.0 # estimated
+
+  book_bobh:
+    author: "Diverse Authors"
+    title:  "The Best of Bad Hemingway"
+    year:   1997
+    size:   [0.126, 0.010, 0.126]
+    weight: 0.210
+
+  book_20neunzehn:
+    author: "University of Hamburg"
+    title:  "20neunzehn"
+    year:   2019
+    size:   [0.205, 0.007, 0.282]
+    weight: 0.308
+
+  book_hamburg:
+    author: "unknwon"
+    title:  "Hamburg Guide (IROS 2015 edition)"
+    year:   2015
+    size:   [0.108, 0.005, 0.185]
+    weight: 0.062
+
+
+### Books by Hamburg professors and lecturers
+
+  book_lagemann:
+    author: "Klaus Lagemann"
+    title:  "Rechnerstrukturen. Verhaltensbeschreibung und Entwurfsebenen"
+    year:   1987
+    size:   [0.165, 0.015, 0.242]
+    weight: 0.554
+
+  book_moeller:
+    author: "D.P.F. Möller"
+    title:  "Rechnerstrukturen"
+    year:   2003
+    size:   [0.153, 0.023, 0.236]
+    weight: 0.592
+
+  book_zuse:
+    author: "Konrad Zuse"
+    title:  "Der Computer - Mein Lebenswerk"
+    year:   1984
+    size:   [0.172, 0.021, 0.247]
+    weight: 0.764
+
+  book_javaff:
+    author: "Norman Hendrich"
+    title:  "Java für Fortgeschrittene"
+    year:   1997
+    size:   [0.157, 0.034, 0.235]
+    weight: 0.906
+
+### newcomers 2019.06.07
+
+  book_memory:
+    author:  "Alan F. Collins, Susan E. Gathercole, Martin A. Conway, Peter E. Morris (Eds.)"
+    title:   "Theories of Memory"
+    year:    1993
+    size:    [0.148, 0.028, 0.227]
+    weight:  0.666 # estimated
+
+  book_pdp1:
+    author: "D. Rumelhardt, J. McClelland"
+    title:  "Parallel Distributed Processing, Volume 1: Foundations"
+    subtitle: "Exploration in the Microstructure of Cognition"
+    year:    1986
+    size:   [0.150, 0.032, 0.228]
+    weight: 0.897
+
+  book_pdp2:
+    author: "D. Rumelhardt, J. McClelland"
+    title:  "Parallel Distributed Processing, Volume 2: Psychological and Biological Models"
+    subtitle: "Exploration in the Microstructure of Cognition"
+    year:   1986
+    size:   [0.150, 0.036, 0.228]
+    weight: 1.008
+
+  book_rojas:
+    author:  "Raul Rojas"
+    title:   "Theorie der neuronalen Netze"
+    subtitle: "Eine systematische Einführung"
+    year:    1993
+    size:    [0.155, 0.030, 0.232"]
+    weight:  0.666 # estimated
+
+  book_schmidt:
+    author: "Schmidt, Thews (Hrsg.)"
+    title:  "Physiologie des Menschen, 24. Auflage"
+    year:   1990
+    size:   [0.200, 0.038, 0.275]
+    weight: 2.111
+
+  book_winograd:
+    author: "Terry Winograd"
+    title:  "Language as a Cognitive Process: Syntax"
+    year:   1983
+    size:   [0.168, 0.037, 0.240]
+    weight: 1.096
+
+#  book_xxx:
+#    author: "xxx"
+#    title:  "xxx"
+#    year:   xxx
+#    size:   [xxx]
+#    weight: xxx

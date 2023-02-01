@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <model name="my_mesh">
+      <pose>1.1 -0.3 0 0 0 1.57</pose>
+      <static>true</static>
+      <link name="body">
+        <collision name="collision">
+         <geometry>
+            <mesh> <uri>model://shelf/shelf.stl</uri> </mesh>
+         </geometry>
+        </collision>
+        <visual name="visual">
+         <geometry>
+            <mesh> <uri>model://shelf/shelf.stl</uri> </mesh>
+         </geometry>
+         <material> <!-- Wheel material -->
+            <script>
+              <uri>model://shelf/media/materials/repeated.material</uri>
+              <name>RepeatedTexture/s</name>
+            </script>
+         </material> <!-- End wheel material -->
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>

@@ -1,0 +1,20 @@
+# This service computed the average 3D-position of points
+# given by their screen coordinates. 
+
+# The x coordinates of the pixels 
+int32[] xIndices
+
+# The y coordinates of the pixels 
+int32[] yIndices
+
+# The width of the point cloud. This is necessary because 
+# right now, point clouds from the azure kinect are formally
+# unstructed eventhough this is not the case. Because of
+# thatwe need to calculate the pixel coordinates ourself using
+# the provided with.    
+int32 width
+
+---
+
+# The average position.
+geometry_msgs/Pose pose 

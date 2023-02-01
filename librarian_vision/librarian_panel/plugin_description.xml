@@ -1,0 +1,7 @@
+<library path="lib/liblibrarian_panel">
+  <class name="librarian_panel/Librarian" type="librarian_panel::LibrarianPanel" base_class_type="rviz::Panel">
+    <description>
+        The Librarian panel shows the recognized books.
+    </description>
+  </class>
+</library>

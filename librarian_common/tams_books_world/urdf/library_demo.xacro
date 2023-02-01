@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<robot name="library_demo"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gazebo/Moveit "world" with two bookshelves and one "counter"
+
+       (C) 2021 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+  <property name="r0" value="0.3" />
+  <property name="dr" value="0.04" />
+  <property name="pi2" value="6.283" />
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/bookshelf.xacro" />
+
+  <xacro:include filename="$(find tams_books_world)/urdf/box_bookend.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/coffee_cup_bookend.xacro" />
+  <xacro:include filename="$(find tams_books_world)/urdf/lightweight_bookend.xacro" />
+
+  <link name="world" />
+
+  <!-- two bookshelves on floating joints -->
+
+  <xacro:bookshelf_2 name="bookshelf_a" sx="0.4" sy="0.8" sz="0.8" tt="0.02" rear_board="true" 
+                     meshname="board-office-gray.dae" >
+  </xacro:bookshelf_2>
+
+  <joint name="bookshelf_a_joint" type="fixed" >
+    <parent link="world" />
+    <child  link="bookshelf_a" />
+    <origin xyz="1 0 0" rpy="0 0 0" />
+  </joint>
+
+  <xacro:bookshelf_4 name="bookshelf_b" sx="0.4" sy="0.8" sz="1.6" tt="0.02" rear_board="true" 
+                     meshname="board-office-gray.dae" >
+  </xacro:bookshelf_4>
+
+  <joint name="bookshelf_b_joint" type="fixed" >
+    <parent link="world" />
+    <child  link="bookshelf_b" />
+    <origin xyz="0 1.2 0" rpy="0 0 1.571" />
+  </joint>
+
+  <xacro:bookshelf_2 name="counter" sx="0.8" sy="1.6" sz="0.75" tt="0.04" rear_board="true" 
+                     meshname="board-office-gray.dae" >
+  </xacro:bookshelf_2>
+
+  <joint name="counter_joint" type="fixed" >
+    <parent link="world" />
+    <child  link="counter" />
+    <origin xyz="0 -1.2 0" rpy="0 0 -1.571" />
+  </joint>
+
+
+  <!-- macro for a book on floating joints -->
+
+  <xacro:macro name="floating_book" params="name weight mesh xsize ysize zsize x y z R P Y" >
+    <xacro:book_cube name="${name}" weight="${weight}" mesh="${mesh}"
+                     xsize="${xsize}" ysize="${ysize}" zsize="${zsize}" />
+
+    <joint name="${name}_floating_joint" type="floating" >
+      <parent link="world" />
+      <child  link="${name}_link" />
+      <origin xyz="${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
+    </joint>
+  </xacro:macro>
+
+  <!-- bookends on the left and the right side -->
+  <xacro:box_bookend name="bookend_left" xsize="0.2" ysize="0.15" zsize="0.17" weight="8.0" />
+
+  <joint name="bookend_left_joint" type="floating" >
+    <parent link="world" />
+    <child  link="bookend_left" />
+    <origin xyz="1 0.20 0.96" rpy="0 0 0" />
+  </joint>
+
+  <!-- does not work: inside-out mesh?
+  <xacro:lightweight_bookend name="bookend_left" yscale="3.0" />
+
+  <joint name="bookend_left_joint" type="floating" >
+    <parent link="world" />
+    <child  link="bookend_left" />
+    <origin xyz="1 0.2 0.83" rpy="0 0 1.571" />
+  </joint>
+  -->
+
+  <!-- <xacro:lightweight_bookend name="bookend_right" yscale="2.0" /> -->
+  <xacro:coffee_cup_bookend name="bookend_right" />
+
+  <joint name="bookend_right_joint" type="floating" >
+    <parent link="world" />
+    <child  link="bookend_right" />
+    <origin xyz="1 -0.196 0.81" rpy="0 0 -3.1415" />
+  </joint>
+
+  <!-- some books on floating joints, similar size except for society-of-mind  -->
+
+  <!-- left side with the the tall one in the center -->
+
+  <xacro:floating_book
+      name="book_minsky" weight="0.764" mesh="book-minsky.dae" xsize="0.215" ysize="0.019" zsize="0.280"
+      x="1" y="0" z="0.88" R="0" P="0" Y="0" />
+
+  <xacro:floating_book
+      name="book_haykin_1" weight="1.316" mesh="book-haykin.dae" xsize="0.177" ysize="0.032" zsize="0.230"
+      x="1" y="${0.019/2+0.032/2+0.003}" z="0.88" R="0" P="0" Y="0" />
+ 
+  <xacro:floating_book
+      name="book_haykin_2" weight="1.316" mesh="book-haykin.dae" xsize="0.177" ysize="0.032" zsize="0.230"
+      x="1" y="${0.019/2+1.5*0.032+2*0.003}" z="0.88" R="0" P="0" Y="0" />
+ 
+  <xacro:floating_book
+      name="book_haykin_3" weight="1.316" mesh="book-haykin.dae" xsize="0.177" ysize="0.032" zsize="0.230"
+      x="1" y="${0.019/2+2.5*0.032+3*0.003}" z="0.88" R="0" P="0" Y="0" />
+ 
+
+  <!-- right side -->
+
+  <xacro:floating_book name="book_pdp2" weight="1.008" mesh="book-pdp2.dae" xsize="0.150" ysize="0.036" zsize="0.228"
+      x="1" y="${-0.019/2-0.036/2 -1*0.003}" z="0.88" R="0" P="0" Y="0" />
+
+  <xacro:floating_book 
+      name="book_pdp1" weight="0.897" mesh="book-pdp1.dae" xsize="0.150" ysize="0.032" zsize="0.228"
+      x="1" y="${-0.019/2-0.036-0.032/2-2*0.003}" z="0.88" R="0" P="0" Y="0" />
+
+  <xacro:floating_book name="book_rojas" weight="0.666" mesh="book-rojas.dae" xsize="0.155" ysize="0.030" zsize="0.232"
+      x="1" y="${-0.019/2-0.036-0.032-0.030/2-3*0.003}" z="0.88" R="0" P="0" Y="0" />
+
+  <xacro:floating_book name="book_wiering" weight="0.964" mesh="book-wiering.dae" xsize="0.155" ysize="0.035" zsize="0.235"
+      x="1" y="${-0.019/2-0.036-0.032-0.030-0.035/2-4*0.003}" z="0.88" R="0" P="0" Y="0" />
+
+  <xacro:floating_book  name="book_winograd" weight="0.777" mesh="book-winograd.dae" xsize="0.168" ysize="0.037" zsize="0.240"
+      x="1" y="${-0.019/2-0.036-0.032-0.030-0.035-0.037/2-5*0.003}" z="0.88" R="0" P="0" Y="0" />
+
+  <!-- bottom shelf -->
+
+  <xacro:floating_book
+      name="book_ifip" weight="0.865" mesh="proj2022/book-ifip.dae" xsize="0.150" ysize="0.022" zsize="0.225"
+      x="1" y="0" z="0.55" R="0" P="0" Y="0" />
+
+  <xacro:floating_book
+      name="book_khoros" weight="0.800" mesh="proj2022/book-khoros.dae" xsize="0.173" ysize="0.025" zsize="0.213"
+      x="1" y="${0.019/2+0.032/2+0.003}" z="0.55" R="0" P="0" Y="0" />
+ 
+  <xacro:floating_book
+      name="book_twki" weight="0.800" mesh="proj2022/book-twki.dae" xsize="0.125" ysize="0.017" zsize="0.195"
+      x="1" y="${0.019/2+0.032/2+0.003}" z="0.55" R="0" P="0" Y="0" />
+ 
+  <xacro:floating_book name="book_ttl2" weight="1.508" mesh="proj2022/book-ttl2.dae" xsize="0.148" ysize="0.046" zsize="0.210"
+      x="1" y="${-0.019/2-0.036/2 -1*0.003}" z="0.55" R="0" P="0" Y="0" />
+
+
+  <!-- right side -->
+
+</robot>

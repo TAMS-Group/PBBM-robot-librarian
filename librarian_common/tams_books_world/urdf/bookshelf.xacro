@@ -1,0 +1,241 @@
+<?xml version="1.0" ?>
+<robot name="bookshelf"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 
+       ROS URDF model of configurable bookshelves.
+       Origin and center of mass are at the center of the mesh.
+
+       (C) 2019 fnh, hendrich@informatik.uni-hamburg.de
+  -->
+
+  <!-- <xacro:property name="meshname" value="board-office-gray.dae" /> -->
+
+  <xacro:include filename="$(find tams_books_world)/urdf/book_cube.xacro" />
+
+  <!-- A bookshelf with 2 shelves (top, middle, bottom boards) -->
+  <!-- outer dimension (sx * sy * sz), board thickness tt -->
+  <!-- board weight calculated by volume and density of wood 980kg/m^3 -->
+  <!-- rear_board: true/false -->
+  <xacro:macro name="bookshelf_2" params="name sx sy sz tt rear_board meshname='board-office-gray.dae'" >
+    <link name="${name}" >
+      <inertial>
+        <origin xyz="0 0 ${sz/2}" rpy="0 0 0" />
+        <mass value="1" />
+        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0" />
+        </geometry>
+      </collision>
+      <visual> 
+        <!-- dummy visual to keep xacro happy -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <material name="${name}/unused_material" >
+          <color rgba="1 0 0 0.5" />
+        </material>
+        <geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0" />
+        </geometry>
+      </visual>
+    </link>
+
+    <gazebo reference="${name}">
+      <turnGravityOff>false</turnGravityOff>
+      <selfCollide>false</selfCollide>
+      <!-- kp: stiffness kd: damping mu1, mu2: friction -->
+      <mu1>100.0</mu1>
+      <mu2>100.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+    </gazebo>
+
+    <xacro:book_cube name="${name}/bottom_board" weight="${sx*sy*sz*980}" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/middle_board" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/top_board" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/left_wall" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${tt}" zsize="${sz}" />
+
+    <xacro:book_cube name="${name}/right_wall" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${tt}" zsize="${sz}" />
+
+    <joint name="${name}/bottom_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/bottom_board_link" />
+      <origin xyz="0 0 ${tt/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/middle_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/middle_board_link" />
+      <origin xyz="0 0 ${sz/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/top_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/top_board_link" />
+      <origin xyz="0 0 ${sz-tt/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/left_wall_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/left_wall_link" />
+      <origin xyz="0 ${sy/2-tt/2} ${sz/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/right_wall_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/right_wall_link" />
+      <origin xyz="0 ${-sy/2+tt/2} ${sz/2}" rpy="0 0 0" />
+    </joint>
+
+    <xacro:if value="${rear_board}">
+      <xacro:book_cube name="${name}/rear_wall" weight="3.0" 
+                       mesh="${meshname}"
+                       xsize="${tt}" ysize="${sy-2*tt}" zsize="${sz}" />
+
+      <joint name="${name}/rear_wall_joint" type="fixed">
+        <parent link="${name}" />
+        <child link="${name}/rear_wall_link" />
+        <origin xyz="${sx/2-tt/2} 0 ${sz/2}" rpy="0 0 0" />
+      </joint>
+    </xacro:if>
+  </xacro:macro>
+
+
+  <!-- A bookshelf with 4 shelves (top, middle, bottom boards) -->
+  <!-- outer dimension (sx * sy * sz), board thickness tt -->
+  <!-- board weight calculated by volume and density of wood 980kg/m^3 -->
+  <!-- rear_board: true/false -->
+  <xacro:macro name="bookshelf_4" params="name sx sy sz tt rear_board meshname:='board-office-gray.dae'" >
+    <link name="${name}" >
+      <inertial>
+        <origin xyz="0 0 ${sz/2}" rpy="0 0 0" />
+        <mass value="1" />
+        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0" />
+        </geometry>
+      </collision>
+      <visual> 
+        <!-- dummy visual to keep xacro happy -->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <material name="${name}/unused_material" >
+          <color rgba="1 0 0 0.5" />
+        </material>
+        <geometry>
+          <box size="0.001 0.001 0.001" rpy="0 0 0" />
+        </geometry>
+      </visual>
+    </link>
+
+    <gazebo reference="${name}">
+      <turnGravityOff>false</turnGravityOff>
+      <selfCollide>true</selfCollide>
+      <!-- kp: stiffness kd: damping mu1, mu2: friction -->
+      <mu1>100.0</mu1>
+      <mu2>100.0</mu2>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+    </gazebo>
+
+    <xacro:book_cube name="${name}/bottom_board" weight="${sx*sy*sz*980}" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/lower_board" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/middle_board" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/upper_board" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/top_board" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${sy-2*tt}" zsize="${tt}" />
+
+    <xacro:book_cube name="${name}/left_wall" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${tt}" zsize="${sz}" />
+
+    <xacro:book_cube name="${name}/right_wall" weight="3.0" 
+                     mesh="${meshname}"
+                     xsize="${sx}" ysize="${tt}" zsize="${sz}" />
+
+    <joint name="${name}/bottom_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/bottom_board_link" />
+      <origin xyz="0 0 ${tt/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/lower_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/lower_board_link" />
+      <origin xyz="0 0 ${1*sz/4}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/middle_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/middle_board_link" />
+      <origin xyz="0 0 ${sz/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/upper_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/upper_board_link" />
+      <origin xyz="0 0 ${3*sz/4}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/top_board_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/top_board_link" />
+      <origin xyz="0 0 ${sz-tt/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/left_wall_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/left_wall_link" />
+      <origin xyz="0 ${sy/2-tt/2} ${sz/2}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="${name}/right_wall_joint" type="fixed">
+      <parent link="${name}" />
+      <child link="${name}/right_wall_link" />
+      <origin xyz="0 ${-sy/2+tt/2} ${sz/2}" rpy="0 0 0" />
+    </joint>
+
+    <xacro:if value="${rear_board}">
+      <xacro:book_cube name="${name}/rear_wall" weight="3.0" 
+                       mesh="${meshname}"
+                       xsize="${tt}" ysize="${sy-2*tt}" zsize="${sz}" />
+
+      <joint name="${name}/rear_wall_joint" type="fixed">
+        <parent link="${name}" />
+        <child link="${name}/rear_wall_link" />
+        <origin xyz="${sx/2-tt/2} 0 ${sz/2}" rpy="0 0 0" />
+      </joint>
+    </xacro:if>
+  </xacro:macro>
+
+</robot>

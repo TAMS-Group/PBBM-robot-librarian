@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Gazebo simulation with the turtlebot3 ("burger") inside the Aedificium
+       labyrinth, with SLAM and move_base running.
+       2021.12.18
+  -->
+
+  <arg name="use_sim_time" default="true" />
+  <arg name="world_name" default="worlds/empty.world" /> <!-- we start with an empty world -->
+
+  <arg name="launch_slam" default="true" />
+  <arg name="launch_gmapping" default="false" />
+  <arg name="launch_rviz" default="true" />
+
+  <arg name="turtle_x" default="10.0" />   <!-- inner room of Anglia tower -->
+  <arg name="turtle_y" default="2.0" />
+  <arg name="turtle_z" default="0.0" />
+  <arg name="turtle_model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+
+  <!-- move_base and gmapping arguments -->
+  <arg name="cmd_vel_topic" default="/cmd_vel"/>
+  <arg name="odom_topic" default="/odom"/>
+  <arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
+  <arg name="set_base_frame" default="base_footprint"/>
+  <arg name="set_odom_frame" default="odom"/>
+  <arg name="set_map_frame"  default="map"/>
+  <arg name="sensor_range" default="1.0"/>
+
+
+  <!-- use simulated time -->
+  <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+
+
+  <!-- cmd_vel topic of our turtlebot3 -->
+  <param name="cmd_vel_topic_name" value="$(arg cmd_vel_topic)"/>
+
+
+  <!-- start gazebo server:  gzserver/debug, start in pause state (-u) -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" 
+        args="$(arg world_name) -u --verbose " >
+  </node>
+
+
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+
+
+  <!-- upload the aedificium (world) xacro/urdf to the param server -->
+  <param name="aedificium_description" 
+         command="$(find xacro)/xacro --inorder $(find tams_books_world)/urdf/aedificium_world.xacro" />
+
+  <!-- upload turtlebot robot model and spawn in gazebo at given position -->
+  <param name="robot_description" 
+         command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg turtle_model).urdf.xacro" />
+
+
+  <!-- spawn the turtlebot in gazebo -->
+  <node pkg="gazebo_ros" name="spawn_turtlebot3" type="spawn_model" 
+        args="-urdf -param robot_description -model turtlebot3_$(arg turtle_model) -x $(arg turtle_x) -y $(arg turtle_y) -z $(arg turtle_z) -param robot_description" />
+
+
+  <!-- spawn the aedificium model at xyz=(0,0,0) -->
+  <node name="spawn_aedificium" pkg="gazebo_ros" type="spawn_model" 
+        args="-urdf -param aedificium_description -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0 -model aedificium" 
+        respawn="false" output="screen" />
+
+
+  <!-- gazebo "drive node"  -->
+  <node name="turtlebot3_drive" pkg="turtlebot3_gazebo" type="turtlebot3_drive" required="true" output="screen">
+    <remap from="/cmd_vel" to="/turtlebot3_drive/cmd_vel" />
+  </node>
+
+
+  <!-- turtlebot robot_state_publisher -->
+  <node pkg="robot_state_publisher" type="state_publisher" respawn="false" name="turtlebot3_state_publisher">
+     <param name="publish_frequency" type="double" value="100.0" />
+     <param name="tf_prefix" type="string" value="" />
+ </node>
+
+
+  <!-- publish world transform to tf -->
+  <node pkg="tf" type="static_transform_publisher" 
+        name="static_world_aedificium_tf_publisher" args="0 0 0 0 0 0 world aedificium 10" />
+
+
+  <node pkg="tf" type="static_transform_publisher" 
+        name="static_world_map_tf_publisher" args="0 0 0 0 0 0 world map 10" />
+
+
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    <arg name="model" value="$(arg turtle_model)"/>
+  </include>
+
+
+  <!-- launch rviz (unless disabled by user) -->
+  <group if="$(arg launch_rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tams_books_world)/config/turtlebot3_aedificium.rviz"/>
+  </group>
+
+
+  <!-- navigation stuff (amcl, move_base, ...) from turtlebot3_slam/turtlebot3_frontier_exploration.launch -->
+  <group if="$(arg launch_slam)">
+
+    <!-- map server -->
+    <node pkg="map_server" name="map_server" type="map_server" 
+          args="$(find tams_books_world)/meshes/aedificium/aedificium-map-no-shelves.yaml" />
+
+    <!-- amcl -->
+    <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
+
+    <!-- move_base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+      <!-- inflation radius too big for the aedificium labyrinth
+      <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_$(arg turtle_model).yaml" 
+                command="load" ns="global_costmap" /> 
+      <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_$(arg turtle_model).yaml" 
+                command="load" ns="local_costmap" />
+      -->
+      <rosparam file="$(find tams_books_world)/config/turtlebot3_burger_costmap_common_params.yaml" 
+                command="load" ns="global_costmap" /> -->
+      <rosparam file="$(find tams_books_world)/config/turtlebot3_burger_costmap_common_params.yaml" 
+                command="load" ns="local_costmap" /> -->
+
+      <rosparam file="$(find turtlebot3_navigation)/param/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find turtlebot3_navigation)/param/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find turtlebot3_navigation)/param/move_base_params.yaml" command="load" />
+      <rosparam file="$(find turtlebot3_navigation)/param/dwa_local_planner_params_$(arg turtle_model).yaml" command="load" />
+      <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+      <remap from="odom" to="$(arg odom_topic)"/>
+    </node>
+
+    <!-- frontier_exploration -->
+    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
+    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen" >
+      <param name="frequency" type="double" value="1.0"/>
+      <param name="goal_aliasing" type="double" value="$(arg sensor_range)"/>
+      <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_$(arg turtle_model).yaml" 
+                command="load" ns="explore_costmap" />
+      <rosparam file="$(find turtlebot3_slam)/config/frontier_exploration.yaml" command="load" ns="explore_costmap" />
+    </node>
+
+ </group>
+
+  <!-- Gmapping stuff -->
+  <group if="$(arg launch_gmapping)">
+    <!-- gmapping node -->
+    <node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen">
+      <param name="base_frame" value="$(arg set_base_frame)"/>
+      <param name="odom_frame" value="$(arg set_odom_frame)"/>
+      <param name="map_frame"  value="$(arg set_map_frame)"/>
+      <rosparam command="load" file="$(find turtlebot3_slam)/config/gmapping_params.yaml" />
+    </node>
+  </group>
+
+</launch>
