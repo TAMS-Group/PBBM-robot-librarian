@@ -132,7 +132,7 @@ class Interfaces:
 
         return responce
 
-    def place_book_lower_left(self, book, cm):
+    def place_book_lower_left(self, book, cm, command = 'place_book'):
         '''place the book on the lower shelf on the left side'''
                 # place_msg    
         # #book to manipulate
@@ -144,7 +144,7 @@ class Interfaces:
         #self.toggle_perception(False)
         man_srv_msg = Manipulate()
         man_srv_msg.header.stamp = rospy.Time.now()
-        man_srv_msg.command = "place_book"
+        man_srv_msg.command = command
 
         man_srv_msg.placement.book = book
         # man_srv_msg.placement.place_pose = place_pose
@@ -253,6 +253,15 @@ class Interact:
         if action == "sort":
             rospy.loginfo("sorting books")
             self.sort_books()
+        elif action == "w":
+            rospy.loginfo("sorting books")
+            self.sort_books(target = "w")
+        elif action == "r":
+            rospy.loginfo("sorting books")
+            self.sort_books(target = "r")
+        elif action == "y":
+            rospy.loginfo("sorting books")
+            self.sort_books(target = "y")
         elif action == "fetch a book":
             self.fetch_book()
     
@@ -284,7 +293,7 @@ class Interact:
             self.inter.shift_books(leftest_book, True)
             self.update_env()
 
-    def sort_books(self):
+    def sort_books(self, target = 'default'):
         '''small demo to sort books one one shelf
         assumptions: books are on one shelf; enough of space 
         for now the pose of the books hould be in the shelf frame
@@ -296,15 +305,29 @@ class Interact:
         rospy.sleep(2)
         books_ordered = self.env.sort_by("height", ascending=False)
         books_ordered = books_ordered[1:]
+        '''
+        for book in books_ordered:
+            print(self.env.book_props(book.database_id, "height"))
+            print(book.database_id)
+        return
+        '''
         cm_counter = 0
         book: Book
-        for book in books_ordered:
-            print(book.database_id)
-            assert self.inter.place_book_lower_left(book, cm_counter).status == True, "manipulation failed"
-            cm_counter += self.env.book_props(book.database_id, "depth")
-            # as agreed with Bjoern, specify the place pose by the lowest, shalest corner
-            #self.update_env()
-        self.inter.toggle_perception(True)
+        if target == 'default':
+            for book in books_ordered:
+                print(book.database_id)
+                assert self.inter.place_book_lower_left(book, cm_counter).status == True, "manipulation failed"
+                cm_counter += self.env.book_props(book.database_id, "depth")
+                # as agreed with Bjoern, specify the place pose by the lowest, shalest corner
+                #self.update_env()
+            self.inter.toggle_perception(True)
+        else:
+            if target == 'w':
+                self.inter.place_book_lower_left(books_ordered[0], cm_counter, command = 'pick_data')
+            if target == 'r':
+                self.inter.place_book_lower_left(books_ordered[1], cm_counter, command = 'place_book')
+            if target == 'y':
+                self.inter.place_book_lower_left(books_ordered[2], cm_counter, command = 'pick_data')
         rospy.loginfo("Finished sort request.")
 
 
